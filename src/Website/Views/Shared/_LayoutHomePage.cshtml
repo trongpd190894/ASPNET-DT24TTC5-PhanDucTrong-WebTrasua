@@ -1,0 +1,223 @@
+﻿@using ProTechTiveGear.Models;
+@{
+    Customer acc = (Customer)Session["usr"];
+    string username = "";
+    if (Request.Cookies["usr"] != null)
+    {
+        username = Request.Cookies["usr"].Value;
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="~/img/fav-icon.png" type="image/x-icon" />
+    <title>Phan Đức Trọng - Trà Sữa Online</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet">
+    <link href="~/vendors/linearicons/style.css" rel="stylesheet">
+    <link href="~/vendors/flat-icon/flaticon.css" rel="stylesheet">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/vendors/owl-carousel/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/vendors/nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/responsive.css" rel="stylesheet">
+
+    <style>
+        /* FIX LỖI KHUẤT NỘI DUNG */
+        header.main_header_three {
+            position: relative !important;
+            width: 100%;
+            z-index: 999;
+            background: #fff;
+        }
+
+        main.main-content {
+            display: block !important;
+            clear: both !important;
+            width: 100%;
+            min-height: 500px;
+            padding-top: 20px;
+            background: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top_logo_header {
+            background: #fff;
+            padding: 15px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .header_logo_inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .user-acc-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none !important;
+        }
+        .user-acc-link span {
+            font-weight: 600;
+            color: #4A2C2A;
+        }
+        .user-avatar {
+            border: 2px solid #D2691E;
+            padding: 2px;
+        }
+        /* Footer */
+        .footer_area {
+            background: #281918;
+            color: #fff;
+            padding-top: 60px;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main_header_three">
+        <div class="top_logo_header">
+            <div class="container">
+                <div class="header_logo_inner">
+                    <div class="h_left_text">
+                        <div class="media">
+                            <div class="media-body">
+                                <a style="color: #888; font-weight: 500;">
+                                    <i class="fa fa-user" style="color: #D2691E"></i> Phan Đức Trọng
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-middle">
+                        <a href="@Url.Action("Index","AuraStore")">
+                            <img style="width : 100px" src="https://hunufa.vn/wp-content/uploads/2024/10/logo-ly-tra-sua-dep-1.webp" alt="Logo">
+                        </a>
+                    </div>
+
+                    <div class="h_right_text">
+                        @if (Session["usr"] == null)
+                        {
+                            <div class="header_auth_links">
+                                <a href="@Url.Action("Login","Login")" style="font-weight:600; color: #4A2C2A">ĐĂNG NHẬP</a>
+                                <span style="margin: 0 10px; color: #ccc">|</span>
+                                <a href="@Url.Action("Register","Login")" style="font-weight:600; color: #D2691E">ĐĂNG KÝ</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="dropdown submenu">
+                                <a class="dropdown-toggle user-acc-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <span>Chào, @acc.Name</span>
+                                    <img class="user-avatar" width="45" height="45" style="border-radius: 50%" src="@Url.Content("~/img/Item/avatar-default-icon.png")">
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="@Url.Action("ListOrderClient","AuraStore")">Đơn Hàng</a></li>
+                                    <li class="dropdown-divider"></li>
+                                    <li><a href="@Url.Action("SignOut","AuraStore")" style="color: red">Đăng xuất</a></li>
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="middle_menu_three">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                        <span class="my_toggle_menu">
+                            <span></span><span></span><span></span>
+                        </span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        @Html.Action("Menu", "AuraStore")
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        @RenderBody()
+    </main>
+
+    <footer class="footer_area">
+        <div class="footer_widgets">
+            <div class="container">
+                <div class="row footer_wd_inner">
+                    <div class="col-lg-4">
+                        <aside class="f_widget f_about_widget">
+                            <h3 style="font-family: 'Playfair Display'; color: #D2691E;">Phan Đức Trọng</h3>
+                            <p>Chúng tôi mang đến những ly trà sữa đậm đà, an toàn và tràn đầy niềm vui.</p>
+                        </aside>
+                    </div>
+                    <div class="col-lg-4">
+                        <aside class="f_widget f_link_widget">
+                            <div class="f_title"><h3>Chính sách</h3></div>
+                            <ul class="list-unstyled">
+                                <li><a href="#" style="color:#bbb">Chính sách giao hàng</a></li>
+                                <li><a href="#" style="color:#bbb">Bảo mật thông tin</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                    <div class="col-lg-4">
+                        <aside class="f_widget f_contact_widget">
+                            <div class="f_title"><h3>Liên hệ</h3></div>
+                            <p><i class="fa fa-phone"></i> 012 345 6789</p>
+                            <p><i class="fa fa-envelope"></i> trasuaonline@gmail.com</p>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer_copyright" style="background: #1a1110; padding: 15px 0; text-align: center; color: #666;">
+            <div class="container">
+                &copy; @DateTime.Now.Year - Website bán trà sữa - Phan Đức Trọng
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true" data-backdrop="false" style="background-color: rgba(0,0,0,0.7); z-index: 99999 !important;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
+                <div class="modal-header" style="border-bottom: none; padding-bottom: 0;">
+                    <h5 class="modal-title" id="searchModalLabel" style="font-weight: bold;">Tìm kiếm sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="@Url.Action("Search", "AuraStore")" method="get">
+                        <div class="input-group">
+                            <input type="text" name="searchString" class="form-control" placeholder="Bạn muốn tìm gì hôm nay?" required style="height: 45px;">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-warning" style="padding: 0 20px;">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="~/Scripts/theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+﻿@{
+    ViewBag.Title = "Thực Đơn Trà Sữa";
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+}
+
+@model IEnumerable<ProTechTiveGear.Models.Item>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+    /* 1. HERO BANNER CSS */
+    .hero-banner {
+        height: 800px;
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                    url('https://i.ytimg.com/vi/NGNazG0D0yU/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCEpKTqjQGI84gghru1fWR8yKTmdw'); /* Link ảnh trà sữa nghệ thuật */
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        margin-bottom: -20px;
+    }
+
+    .hero-content h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 64px;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .hero-content p {
+        font-family: 'Poppins', sans-serif;
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+    .btn-hero {
+        background-color: #D2691E;
+        color: white !important;
+        padding: 15px 40px;
+        border-radius: 50px;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 1px;
+        transition: all 0.3s;
+        text-decoration: none;
+    }
+
+    .btn-hero:hover {
+        background-color: #4A2C2A;
+        transform: scale(1.05);
+    }
+
+    /* 2. MENU CSS (Giữ nguyên từ code cũ của bạn) */
+    .cake_feature_main {
+        background-color: #fffaf5;
+        padding: 80px 0;
+    }
+
+    .premium-title-box {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .premium-title {
+        font-family: 'Playfair Display', serif;
+        color: #4A2C2A;
+        font-size: 42px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 15px;
+    }
+
+    .premium-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: #D2691E;
+        border-radius: 2px;
+    }
+
+    .sub-title {
+        font-family: 'Poppins', sans-serif;
+        color: #888;
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+
+    .product-card {
+        background: #fff;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid #f0f0f0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+    }
+
+    .product-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 40px rgba(74, 44, 42, 0.15);
+    }
+
+    .product-img-wrapper {
+        position: relative;
+        padding-top: 100%; 
+        overflow: hidden;
+        background: #fdfdfd;
+    }
+
+    .product-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .product-card:hover .product-img {
+        transform: scale(1.15);
+    }
+
+    .product-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: rgba(210, 105, 30, 0.9);
+        color: #fff;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        z-index: 2;
+    }
+
+    .product-info {
+        padding: 25px 20px;
+        text-align: center;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .product-name {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+        color: #2d2d2d;
+        margin-bottom: 12px;
+        transition: color 0.3s;
+        text-decoration: none;
+        display: block;
+        min-height: 48px;
+    }
+
+    .product-card:hover .product-name {
+        color: #D2691E;
+    }
+
+    .product-price {
+        font-family: 'Poppins', sans-serif;
+        font-size: 22px;
+        color: #4A2C2A;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .currency {
+        font-size: 15px;
+        vertical-align: super;
+        margin-left: 2px;
+    }
+
+    .btn-add-cart {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: #4A2C2A;
+        color: #fff !important;
+        padding: 12px 20px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        transition: all 0.3s;
+        border: none;
+    }
+
+    .btn-add-cart:hover {
+        background: #D2691E;
+        box-shadow: 0 8px 15px rgba(210, 105, 30, 0.3);
+    }
+</style>
+
+
+
+<section id="menu-section" class="welcome_bakery_area cake_feature_main">
+    <div class="container">
+        <div class="premium-title-box">
+            <h2 class="premium-title">Menu Trà Sữa</h2>
+            <p class="sub-title">Hương vị ngọt ngào - Trao gửi yêu thương</p>
+        </div>
+    
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            @if (item.Quantity > 5)
+                            {
+                                <div class="product-badge">Hot Item</div>
+                            }
+                            <a href="@Url.Action("Detail","AuraStore",new { id=item.ID})">
+                                <img class="product-img" src="~/img/Item/@item.Picture" alt="@item.Name">
+                            </a>
+                        </div>
+                        
+                        <div class="product-info">
+                            <a href="@Url.Action("Detail","AuraStore",new { id=item.ID})" class="product-name">@item.Name</a>
+                            
+                            <div class="product-price">
+                                @String.Format("{0:0,0}", item.SellPrice)<span class="currency">₫</span>
+                            </div>
+                            
+                            <div class="product-action">
+                                @if (item.Quantity == 0)
+                                {
+                                    <div class="out-of-stock-text"><i class="fas fa-info-circle"></i> Tạm hết hàng</div>
+                                    <button class="btn-add-cart disabled" disabled>Hết hàng</button>
+                                }
+                                else
+                                {
+                                    <a class="btn-add-cart" href="@Url.Action("AddtoCart","Cart",new {@id=item.ID,@strURL=Request.Url.ToString() })">
+                                        <i class="fas fa-shopping-basket"></i> Thêm vào giỏ
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="new_arivals_area p_100" style="background-color:#fdfdfd">
+    <div class="container">
+        <div class="single_pest_title">
+            <h2 style="font-family: 'Playfair Display', serif; color: #4A2C2A;">Bộ Sưu Tập Mới</h2>
+        </div>
+
+        <div class="row arivals_inner">
+            <div class="col-lg-6 col-sm-12 mb-4">
+                <div class="arivals_chocolate shadow-sm">
+                    <div class="arivals_pic">
+                        <img class="img-fluid" src="https://tuibao.vn/wp-content/uploads/2023/08/2405_anhapp-11.png" alt="Trà sữa mới">
+                    </div>
+                
+                    <div class="arivals_text" style="background: rgba(74, 44, 42, 0.85); padding: 30px; border-radius: 0 0 20px 20px;">
+                        <h4 style="color:#fff">Trà sữa <span style="color:#D2691E">Khoai môn</span></h4>
+                        <a href="#" style="color:#f4a460; text-transform:uppercase; font-size:12px; font-weight:700">Khám phá ngay</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-sm-12">
+                @Html.Action("Newdproducts", "AuraStore")
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ProTechTiveGear.Models.Item> 
+
+@{
+    ViewBag.Title = "Kết quả tìm kiếm";
+    // Ép trang này sử dụng đúng giao diện của quán trà sữa
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+    
+    // Lấy từ khóa người dùng vừa gõ để in ra màn hình
+    string keyword = Request.QueryString["searchString"];
+}
+
+<div style="height: 120px;"></div>
+
+<section class="product_area p_100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center" style="margin-bottom: 40px;">
+                <h2 style="font-family: 'Playfair Display', serif; color: #D2691E; font-weight: bold;">
+                    Kết quả tìm kiếm cho: "@keyword"
+                </h2>
+                <hr style="width: 100px; border-top: 2px solid #D2691E; margin: 20px auto;">
+            </div>
+        </div>
+
+        <div class="row">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom: 30px;">
+                        <div class="card" style="border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden;">
+                            
+                            @* ĐÃ SỬA item.Image THÀNH item.Picture *@
+                            <img src="@Url.Content("~/img/Item/" + item.Picture)" class="card-img-top" alt="@item.Name" style="height: 250px; object-fit: cover;">
+                            
+                            <div class="card-body text-center">
+                                <h5 class="card-title" style="font-weight: bold; color: #4A2C2A; font-size: 18px;">@item.Name</h5>
+                                
+                                @* ĐÃ SỬA item.Price THÀNH item.SellPrice *@
+                                <p class="card-text" style="color: #D2691E; font-weight: bold; font-size: 16px;">
+                                    @String.Format("{0:0,0}", item.SellPrice) VNĐ
+                                </p>
+                                
+                                <a href="@Url.Action("AddCart", "Cart", new { id = item.ID })" class="btn btn-warning" style="border-radius: 20px; font-weight: bold;">
+                                    <i class="fa fa-shopping-cart"></i> Thêm giỏ hàng
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <div class="alert alert-warning" style="font-size: 18px; border-radius: 10px;">
+                        <i class="fa fa-frown-o" style="font-size: 24px;"></i> Tiếc quá, không tìm thấy món nào khớp với từ khóa <strong>"@keyword"</strong>.<br /> Bạn thử tìm món khác nhé!
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<div style="height: 80px;"></div>

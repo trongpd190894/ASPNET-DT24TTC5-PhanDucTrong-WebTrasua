@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ProTechTiveGear.Models.Menu>
+@using ProTechTiveGear.Models;
+@{
+    Customer acc = (Customer)Session["usr"];
+    string username = "";
+    if (Request.Cookies["usr"] != null)
+    {
+        username = Request.Cookies["usr"].Value;
+    }
+}
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav">
+
+        <li class="dropdown submenu">
+            <a class="dropdown-toggle" href="@Url.Action("Index", "AuraStore")" role="button" aria-haspopup="true" aria-expanded="false">Trang chủ</a>
+        </li>
+
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <li class="dropdown submenu">
+                    <a class="dropdown-toggle" href="#" role="button" aria-haspopup="true" aria-expanded="false">@item.Name</a>
+                    <ul class="dropdown-menu">
+                        @Html.Action("ItemMenuType", "AuraStore", new { id = item.ID })
+                        @Html.Action("Brandtype", "AuraStore", new { id = item.ID })
+                    </ul>
+                </li>
+            }
+        }
+
+        <li class="dropdown submenu">
+            <a class="dropdown-toggle" href="@Url.Action("Contact", "AuraStore")" role="button" aria-haspopup="true" aria-expanded="false">Liên Hệ</a>
+        </li>
+
+        <li class="search_icon">
+            <a href="#" data-toggle="modal" data-target="#searchModal">
+                <i class="fa fa-search"></i>
+            </a>
+        </li>
+
+        @Html.Action("CartPartial", "Cart")
+
+        @if (Session["usr"] != null)
+        {
+            <li class="dropdown submenu">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span>@acc.Name</span>
+                    <img width="30" height="30" style="border-radius: 50%; margin-left: 5px;" src="@Url.Content("~/img/Item/avatar-default-icon.png")">
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/Client/ProfileClient">Profile</a></li>
+                    <li><a href="~/Account/EditPassword">Change Password</a></li>
+                    <li><a href="@Url.Action("SignOut", "AuraStore")">Logout</a></li>
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li><a href="@Url.Action("Login", "Login")">Đăng nhập</a></li>
+        }
+
+    </ul>
+</div>

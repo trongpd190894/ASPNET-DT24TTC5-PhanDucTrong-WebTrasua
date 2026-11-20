@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Đăng Ký - Bạch Xuân Lan";
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+}
+
+<div style="clear: both !important; padding: 80px 0; background: #fffaf5; min-height: 80vh;">
+    <div class="container">
+        <div class="row" style="display: flex; justify-content: center;">
+            <div class="col-md-6" style="flex: 0 0 50%; max-width: 500px;">
+                <div style="background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #eee;">
+                    
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h2 style="font-family: 'Playfair Display'; color: #4A2C2A; font-weight: 700;">ĐĂNG KÝ</h2>
+                        <p style="color: #888;">Trở thành thành viên của Phan Đức Trọng</p>
+                    </div>
+
+                    @using (Html.BeginForm("Register", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-weight: 600; color: #4A2C2A; margin-bottom: 5px;">Họ và Tên</label>
+                            <input type="text" name="Name" style="width: 100%; height: 45px; border-radius: 8px; border: 1px solid #ddd; padding: 0 15px;" placeholder="Nguyễn Văn A" required />
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-weight: 600; color: #4A2C2A; margin-bottom: 5px;">Tài khoản</label>
+                            <input type="text" name="Username" style="width: 100%; height: 45px; border-radius: 8px; border: 1px solid #ddd; padding: 0 15px;" placeholder="username123" required />
+                        </div>
+
+                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <div style="flex: 1;">
+                                <label style="display: block; font-weight: 600; color: #4A2C2A; margin-bottom: 5px;">Mật khẩu</label>
+                                <input type="password" name="Password" style="width: 100%; height: 45px; border-radius: 8px; border: 1px solid #ddd; padding: 0 15px;" placeholder="******" required />
+                            </div>
+                            <div style="flex: 1;">
+                                <label style="display: block; font-weight: 600; color: #4A2C2A; margin-bottom: 5px;">Xác nhận</label>
+                                <input type="password" name="ConfirmPassword" style="width: 100%; height: 45px; border-radius: 8px; border: 1px solid #ddd; padding: 0 15px;" placeholder="******" required />
+                            </div>
+                        </div>
+                        <span style="color:red; font-size: 12px;">@ViewBag.Confirm</span>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-weight: 600; color: #4A2C2A; margin-bottom: 5px;">Email</label>
+                            <input type="email" name="Email" style="width: 100%; height: 45px; border-radius: 8px; border: 1px solid #ddd; padding: 0 15px;" placeholder="email@gmail.com" required />
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-weight: 600; color: #4A2C2A; margin-bottom: 5px;">Địa chỉ</label>
+                            <input type="text" name="Address" style="width: 100%; height: 45px; border-radius: 8px; border: 1px solid #ddd; padding: 0 15px;" placeholder="Số nhà, tên đường..." required />
+                        </div>
+
+                        <div style="margin-bottom: 25px;">
+                            <label style="display: block; font-weight: 600; color: #4A2C2A; margin-bottom: 5px;">Số điện thoại</label>
+                            <input type="text" name="PhoneNumber" style="width: 100%; height: 45px; border-radius: 8px; border: 1px solid #ddd; padding: 0 15px;" placeholder="090xxxxxxx" required />
+                        </div>
+
+                        <button type="submit" style="width: 100%; background: #4A2C2A; color: #fff; padding: 12px; border: none; border-radius: 50px; font-weight: 700; cursor: pointer; text-transform: uppercase; transition: 0.3s;">ĐĂNG KÝ NGAY</button>
+                    }
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <a href="@Url.Action("Login", "Login")" style="color: #D2691E; text-decoration: none; font-weight: 600;">Bạn đã có tài khoản? Đăng nhập</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

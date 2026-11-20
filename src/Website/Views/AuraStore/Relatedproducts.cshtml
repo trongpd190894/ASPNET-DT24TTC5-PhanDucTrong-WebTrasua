@@ -1,0 +1,148 @@
+﻿@model IEnumerable<ProTechTiveGear.Models.Item>
+
+<style>
+    .similar_product_area {
+        background-color: #fff;
+        padding: 60px 0;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .similar-title-box {
+        margin-bottom: 40px;
+        text-align: left;
+    }
+
+    .similar-title {
+        font-family: 'Playfair Display', serif;
+        color: #4A2C2A;
+        font-size: 28px;
+        font-weight: 700;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 10px;
+    }
+
+    .similar-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background: #D2691E;
+    }
+
+    /* Tối ưu card cho mục sản phẩm tương tự */
+    .similar-card {
+        background: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        margin-bottom: 25px;
+        border: 1px solid #f5f5f5;
+    }
+
+    .similar-card:hover {
+        box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        transform: translateY(-5px);
+    }
+
+    .similar-img-wrapper {
+        position: relative;
+        padding-top: 100%;
+        overflow: hidden;
+    }
+
+    .similar-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .similar-info {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .similar-name {
+        font-family: 'Poppins', sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: #333;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .similar-price {
+        color: #D2691E;
+        font-weight: 700;
+        font-size: 16px;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .btn-similar-cart {
+        display: inline-block;
+        border: 1px solid #4A2C2A;
+        color: #4A2C2A !important;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .btn-similar-cart:hover {
+        background: #4A2C2A;
+        color: #fff !important;
+    }
+</style>
+
+<section class="similar_product_area">
+    <div class="container">
+        <div class="similar-title-box">
+            <h2 class="similar-title">Có thể bạn sẽ thích</h2>
+        </div>
+        
+        <div class="row similar_product_inner">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <div class="similar-card">
+                            <a href="@Url.Action("Detail","AuraStore",new { id=item.ID})">
+                                <div class="similar-img-wrapper">
+                                    <img class="similar-img" src="~/img/Item/@item.Picture" alt="@item.Name">
+                                </div>
+                            </a>
+                            <div class="similar-info">
+                                <a href="@Url.Action("Detail","AuraStore",new { id=item.ID})" class="similar-name">@item.Name</a>
+                                <span class="similar-price">@String.Format("{0:0,0}", item.SellPrice)đ</span>
+                                
+                                @if (item.Quantity > 0)
+                                {
+                                    <a class="btn-similar-cart" href="@Url.Action("AddtoCart","Cart",new {@id=item.ID,@strURL=Request.Url.ToString() })">
+                                        + Giỏ hàng
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span style="font-size: 12px; color: #ccc;">Hết hàng</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>

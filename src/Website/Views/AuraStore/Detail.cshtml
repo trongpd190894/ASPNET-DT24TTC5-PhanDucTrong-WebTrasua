@@ -1,0 +1,210 @@
+﻿@{
+    ViewBag.Title = Model.Name + " - Chi tiết";
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+    .product_details_area {
+        background-color: #fffaf5;
+        padding: 100px 0;
+    }
+
+    /* Khung ảnh sản phẩm */
+    .product_d_img {
+        background: #fff;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        text-align: center;
+    }
+
+    .product_d_img img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 15px;
+        transition: transform 0.3s ease;
+    }
+
+    .product_d_img img:hover {
+        transform: scale(1.02);
+    }
+
+    /* Nội dung bên phải */
+    .product_details_text h4 {
+        font-family: 'Playfair Display', serif;
+        font-size: 36px;
+        color: #4A2C2A;
+        margin-bottom: 15px;
+    }
+
+    .short-title {
+        font-family: 'Poppins', sans-serif;
+        color: #888;
+        font-size: 16px;
+        margin-bottom: 25px;
+        line-height: 1.6;
+    }
+
+    .price-tag {
+        font-family: 'Poppins', sans-serif;
+        font-size: 28px;
+        color: #D2691E;
+        font-weight: 700;
+        margin-bottom: 30px;
+        display: block;
+    }
+
+    .quantity_box {
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .quantity_box label {
+        font-weight: 600;
+        color: #4A2C2A;
+        margin-bottom: 0;
+    }
+
+    .quantity_box input {
+        width: 80px;
+        height: 45px;
+        border-radius: 25px;
+        border: 1px solid #ddd;
+        text-align: center;
+        padding-left: 10px;
+        font-weight: 600;
+    }
+
+    /* Nút thêm vào giỏ */
+    .btn-custom-cart {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background-color: #4A2C2A;
+        color: #fff !important;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s;
+        text-decoration: none;
+        border: none;
+    }
+
+    .btn-custom-cart:hover {
+        background-color: #D2691E;
+        box-shadow: 0 10px 20px rgba(210, 105, 30, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .btn-custom-cart.disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    /* Tabs mô tả */
+    .product_tab_area {
+        margin-top: 80px;
+    }
+
+    .nav-tabs {
+        border-bottom: 2px solid #eee;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .nav-tabs .nav-link {
+        border: none;
+        color: #888;
+        font-weight: 600;
+        font-size: 18px;
+        padding: 15px 30px;
+        position: relative;
+    }
+
+    .nav-tabs .nav-link.active {
+        color: #4A2C2A;
+        background: transparent;
+    }
+
+    .nav-tabs .nav-link.active:after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #D2691E;
+    }
+
+    .tab-content {
+        background: #fff;
+        padding: 40px;
+        border-radius: 0 0 20px 20px;
+        line-height: 1.8;
+        color: #555;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+    }
+</style>
+
+<section class="product_details_area">
+    <div class="container">
+        <div class="row product_d_price align-items-center">
+            <div class="col-lg-6">
+                <div class="product_d_img">
+                    <img src="~/img/Item/@Model.Picture" alt="@Model.Name">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="product_details_text">
+                    <h4>@Model.Name</h4>
+                    <p class="short-title">@Model.ShortTitle</p>
+                    
+                    <span class="price-tag">
+                        @String.Format("{0:0,0}", Model.SellPrice) <small>VND</small>
+                    </span>
+
+                    <div class="quantity_box">
+                        <label for="quantity">Số lượng:</label>
+                        <input type="number" min="1" max="50" value="1" id="quantity">
+                    </div>
+
+                    @if (Model.Quantity == 0)
+                    {
+                        <div style="margin-bottom: 20px; color: #ff4757; font-weight: 600;">
+                            <i class="fas fa-exclamation-triangle"></i> Hiện tại sản phẩm đã hết hàng
+                        </div>
+                        <a class="btn-custom-cart disabled">Hết hàng</a>
+                    }
+                    else
+                    {
+                        <a class="btn-custom-cart" href="@Url.Action("AddtoCart","Cart",new {@id=@Model.ID,@strURL=Request.Url.ToString() })">
+                            <i class="fas fa-shopping-bag"></i> Thêm vào giỏ hàng
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="product_tab_area">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Mô tả sản phẩm</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="describe-content">
+                        @Html.Raw(Model.Describe)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
