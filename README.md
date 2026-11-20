@@ -1,5 +1,5 @@
 ****ASPNET-DT24TTC5-PHANDUCTRONG-WEBTRASUA****
-**Đồ án:** Xây dựng website bán trà sữa Thông tin sinh viên Họ và tên: Phan Đưc Trọng MSSV: 170124491 Email: trongpd190894@tvu-onschool.edu.vn
+**Đồ án:** Xây dựng website bán trà sữa Thông tin sinh viên Họ và tên: Phan Đức Trọng MSSV: 170124491 Email: trongpd190894@tvu-onschool.edu.vn
 Giới thiệu Dự án xây dựng website bán trà sữa trực tuyến nhằm hỗ trợ khách hàng đặt món nhanh chóng và giúp cửa hàng quản lý đơn hàng hiệu quả. Hệ thống hướng đến trải nghiệm thân thiện, dễ sử dụng và tối ưu cho cả người dùng lẫn quản trị viên.
 **Mục tiêu**
 Xây dựng hệ thống bán hàng online hoàn chỉnh
